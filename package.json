@@ -1,0 +1,17 @@
+{
+  "name": "github-contribution-bot",
+  "version": "1.0.0",
+  "description": "ok",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "readline-sync": "^1.4.10",
+    "simple-git": "^2.40.0"
+  },
+  "devDependencies": {}
+}
