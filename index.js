@@ -8,7 +8,7 @@ const env = fs.readFileSync('.env', 'utf-8')
 const readlineSync = require('readline-sync')
 
 Object.assign(process.env, dotenv.parse(env))
-c
+
 
 void async function main(){
 
