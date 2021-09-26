@@ -19,7 +19,7 @@ token= \\Enter Your Github Personal Access Token
 
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
-Make Personal Access token with full-control
+Make Personal Access token with full-control, no-expiration
 
 Copy token and paste it in .env file
 
