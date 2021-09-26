@@ -17,7 +17,10 @@ void async function main(){
     const urls = fs.readFileSync('./repositories.txt', 'utf-8').trim().split("\n")
     for(let url of urls){
       console.log("\n", url)
-      await run(url)
+      try{
+        await run(url)
+      }catch(e){
+      }
     }
   }
   else{
