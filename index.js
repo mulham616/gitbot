@@ -8,7 +8,7 @@ const env = fs.readFileSync('.env', 'utf-8')
 const readlineSync = require('readline-sync')
 
 Object.assign(process.env, dotenv.parse(env))
-
+c
 
 void async function main(){
 
@@ -17,7 +17,7 @@ void async function main(){
   const repo_path = path.join('./repo', repo_name)
   if(fs.existsSync(repo_path)) 
     fs.rmSync(repo_path, { recursive: true });
-  await simpleGit().clone('https://github.com/saniales/saniales.git', repo_path)
+  await simpleGit().clone(repo_url, repo_path)
   console.log("Clone complete")
   global.git = simpleGit(repo_path)   
               .addConfig('user.name', process.env.name)
