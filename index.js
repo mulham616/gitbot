@@ -12,7 +12,21 @@ Object.assign(process.env, dotenv.parse(env))
 
 void async function main(){
 
-  const repo_url = readlineSync.question("Enter github url: ")
+  const repo_url = readlineSync.question("Enter github url or empty string to clone all repositories in repositories.txt: ")
+  if(repo_url == ""){
+    const urls = fs.readFileSync('./repositories.txt', 'utf-8').trim().split("\n")
+    for(let url of urls){
+      console.log("\n", url)
+      await run(url)
+    }
+  }
+  else{
+    run(repo_url)
+  }
+
+}()
+
+async function run(repo_url){
   const repo_name = repo_url.trim().match(/\/([^\/]+)(\.git)*$/)[1]
   const repo_path = path.join('./repo', repo_name)
   if(fs.existsSync(repo_path)) 
@@ -24,7 +38,7 @@ void async function main(){
               .addConfig('user.email', process.env.email)
   const commits = (await git.log()).all
   const firstCommit = commits[0]
-  console.log(commits[0])
+  console.log('Orig Author:', firstCommit.author_name, firstCommit.author_email)
   const command = `git filter-branch -f --env-filter "GIT_AUTHOR_NAME='${process.env.name}'; GIT_AUTHOR_EMAIL='${process.env.email}'; GIT_COMMITTER_NAME='${firstCommit.author_name}'; GIT_COMMITTER_EMAIL='${firstCommit.author_email}';" HEAD`
   cp.execSync(command, {
     cwd: repo_path
@@ -36,7 +50,7 @@ void async function main(){
   await git.branch(['-M', 'main'])
   await git.push('origin', 'main', ['-u'])
   console.log("\nFinished Uploading New Project!")
-}()
+}
 
 async function createRepo(repo_name){
   const request = axios({
